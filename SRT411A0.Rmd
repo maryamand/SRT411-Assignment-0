@@ -1,0 +1,236 @@
+---
+title: "ASSIGNMENT 0 - SRT411"
+author: "Mahdy Aryamand | Student No : 011-913-076"
+date: "May 2, 2016"
+output: Rmd_document
+---
+
+##Introduction
+
+The assignment 0 includes all the different ToDos in the Short Introduction to R. I am using knitr to produce the Rmd document which I will be naming SRT411A0.Rmd as specified. Below are the 15 ToDos as required.
+
+##ToDo 1
+
+Question: Compute the difference between 2014 and the year you started at this university and divide this by the difference between 2014 and the year you were born. Multiply this with 100 to get the percentage of your life you have spent at this university. Use brackets if you need them.
+
+Answer: I was born in 1983 and we are currently in 2016. I joined IFS program at Seneca in 2012. Hence the percentage of my life I have spent in college can be calculated as shown below:
+
+```{r}
+((2016-2012)/(2016-1983))*100
+```
+
+As shown above, I have spent 12.1 % of my life at college.
+
+##ToDo 2
+
+Question : Repeat the previous ToDo, but with several steps in between. You can give the variables any name you want, but the name has to start with a letter.
+
+Answer : We have now been requested to make use of variables to calculate the percentage of life spent at college. It is exactly as the previous one but just that this time I will be using variables to save each output individually. The results are the same as shown below.
+
+```{r}
+CollegeYears = (2016-2012) #Numbers of years spent at college
+Age = (2016-1983) #My current Age
+Percentage = ((CollegeYears/Age) * 100) #Saving percentage spent at college as Percentage
+Percentage #Calling the variable Percentage
+```
+
+##ToDo 3
+
+Question : Compute the sum of 4, 5, 8 and 11 by first combining them into a vector and then using the function sum.
+
+Answer : In this step we are required to create a vector with the numbers 4, 5, 8 and 11. Once the vector is created, we will proceed to calculate the sum of the vector. We will make use of a variable to make our task easier. 
+
+```{r}
+vector = c(4, 5, 8, 11) #saving the vector as a variable called vector
+sum(vector) #calculating the sum of the vector
+```
+
+The sum is as shown above which gives us a result of 28 as expected.
+
+##ToDo 4
+
+Question : Plot 100 normal random numbers.
+
+Answer : The rnorm function can be used to generate random numbers. We will be using this function to generate 100 random numbers and use the plot function to plot the numbers on a graph. The code is as shown below.
+
+```{r}
+random = rnorm(100) #saving 100 numbers to a variable called random
+plot(random) # plotting the 100 numbers
+```
+
+##ToDo 5
+
+Question : Find help for the sqrt function.
+
+Answer : The code is as shown below.
+
+```{r}
+help(sqrt)
+```
+
+##ToDo 6
+
+Question : Make a file called firstscript.R containing R-code that generates 100 random numbers and plots them, and run this script several times.
+
+Answer : Here we will be saving the code in ToDo 4 as firstscript.R. We will then call then anytime we want. The code used to call the script is as shown below.
+
+```{r}
+source("firstscript.R")
+```
+
+##ToDo 7 
+
+Question : Put the numbers 31 to 60 in a vector named P and in a matrix with 6 rows and 5 columns named Q. Tip: use the function seq. Look at the different ways scalars, vectors and matrices are denoted in the workspace window.
+
+Answer : The code is as shown below.
+
+```{r}
+Q = matrix((P = seq(from=31, to=60, by=1)), nrow=6, ncol=5)
+Q # Printing the matrix
+```
+
+##ToDo 8
+
+Question : Make a script le which constructs three random normal vectors of length 100. Call these vectors x1, x2 and x3. Make a data frame called t with three columns (called a, b and c) containing respectively x1, x1+x2 and x1+x2+x3. Call the following functions for this data frame: plot(t) and sd(t). Can you understand the results? Rerun this script a few times.
+
+Answer : I will create 3 vectors each of length 100 and name them x1, x2 and x3 respectively. I will then create a data frame with a (a = x1), b (b = x1 + x2) and c (c = x1 + x2 + x3). The data frame will be saved as a variable called 't'. I will proceed to plot 't' and calculate the standard deviation.
+
+```{r}
+#saving 3 vectors x1, x2 and x3 of length 100
+x1 = c(rnorm(100))
+x2 = c(rnorm(100))
+x3 = c(rnorm(100))
+#Calling vectors create
+x1 #calling vector x1
+x2 #calling vector x2
+x3 #calling vector x3
+t = data.frame(a = x1, b = x1+x2, c = x1+x2+x3) #creating the data frame
+plot(t) #plotting the graph
+```
+
+##ToDo 9
+
+Question : Add these lines to the script file of the previous section. Try to find out, either by experimenting or by using the help, what the meaning is of rgb, the last argument of rgb, lwd, pch, cex.
+
+Answer : The following lines will be added the previous script.
+
+```{r}
+plot(t$a, type="l", ylim=range(t),
+lwd=3, col=rgb(1,0,0,0.3))
+lines(t$b, type="s", lwd=2,
+col=rgb(0.3,0.4,0.3,0.9))
+points(t$c, pch=20, cex=4,
+col=rgb(0,0,1,0.3))
+```
+
+Explanation:
+
+* rgb : This stands for Red, Green and Blue. By changing the number of the 3 different values, I can create the colour of my choice and can even change the intensity of the graph with the last number.
+
+* lwd : This represents the thickness of the line which we will be using to plot the graph. We can increase the thickness by increasing the value.
+
+* pch : This is the sign of the plot we use to plot graphs. Different numbers represent different shapes including squares, triangles, cross etc.
+
+* cex : This is the size of the coordinates being used. We can make the coordinates bigger by increasing the number.
+
+##ToDo 10
+
+Question : Make a file called tst1.txt in Notepad from the example in Figure 4 and store it in your working directory. Write a script to read it, to multiply the column called g by 5 and to store it as tst2.txt.
+
+Answer : The code is as shown below.
+
+```{r}
+dataset = data.frame(a = c(1,2,4,8,16,32), 
+               g = c(2,4,8,16,32,64),
+               x = c(3,6,12,24,48,96))
+write.table(dataset,file="tst1.txt", row.names=FALSE) #saving dataset to tst1.txt
+read.table(file="tst1.txt", header=TRUE) #reading the file
+```
+
+We can now multiply the g column by 5 and save the result to a file named tst2.txt. The code is as follows:
+
+```{r}
+dataset[2] = dataset[2]*5 #multiply the column g by 5
+write.table(dataset,file="tst2.txt", row.name=FALSE) #saving result to tst2.txt
+```
+
+##ToDo 11
+
+Question : Compute the mean of the square root of a vector of 100 random numbers. What happens?
+
+Answer : The code and results is as shown below. As it can be seen NaNs are produced which means not a valid number. It usually represents an imaginary number.
+
+```{r}
+sqrt(rnorm(100))
+```
+
+##ToDo 12
+
+Question : Make a graph with on the x-axis: today, Sinterklaas 2014 and your next birthday and on the y-axis the number of presents you expect on each of these days. Tip: make two vectors first.
+
+Answer : As requested we will create 2 vectors first. The code is as follows:
+
+```{r}
+Year = strptime(c("20141205", "20150608"),format="%Y%m%d")
+Number_of_presents = c(2,7)
+plot(Year, Number_of_presents)
+```
+
+##ToDo 13
+
+Question : Make a vector from 1 to 100. Make a for-loop which runs through the whole vector. Multiply the elements which are smaller than 5 and larger than 90 with 10 and the other elements with 0.1.
+
+Answer : We will be using a for loop as follows.
+
+```{r}
+vector = seq(from=1, to=100) # creating a vector with numbers from 1-100
+for (i in 1:100)
+{
+  if (vector[i] < 5 | vector[i] > 90)
+  {
+    vector[i] = vector[i] * 10
+  }
+  else
+  {
+    vector[i] = vector[i] * 0.1 
+  }
+}
+```
+
+##ToDo 14
+
+Question : Write a function for the previous ToDo, so that you can feed it any vector you like (as argument). Use a for-loop in the function to do the computation with each ele-
+ment. Use the standard R function length in the specification of the counter. 
+
+Answer : This can be achieved by using the length function in r. The code is as shown below.
+
+```{r}
+vector = function(argument)
+{
+  for (i in 1:length(argument))
+  {
+    if (argument[i] < 5 | argument[i] > 90)
+    {
+      argument[i] = argument[i] * 10
+    }
+  else 
+    {
+      argument[i] = argument[i] * 0.1
+    }
+  }
+}
+```
+
+We can now pass any argument we want!
+
+##ToDo 15
+
+Question : Achieve the previus ToDo without a for-loop.
+
+Answer : This can be achieved with the following code.
+
+```{r}
+vector = c(1:100)
+ifelse(vector < 5 | vector > 90, vector * 10, vector * 0.1)
+```
+
